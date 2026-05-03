@@ -1,0 +1,74 @@
+#include <iostream>
+#include <vector>
+#include <chrono>
+#include <fstream>
+#include <cstdlib> 
+#include <ctime>
+
+using namespace std;
+using namespace std::chrono;
+
+using Matrix = vector<vector<double>>;
+
+void llenarMatriz(Matrix &M, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            M[i][j] = (double)(rand() % 100); 
+        }
+    }
+}
+
+// Algoritmo de multiplicación clasica O(n^3)
+void multiplicarEstandar(const Matrix &A, const Matrix &B, Matrix &C, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            C[i][j] = 0; 
+            for (int k = 0; k < n; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+int main() {
+    srand(time(NULL));
+
+    ofstream archivo("data/resultados.dat");
+    if (!archivo.is_open()) {
+        cerr << "Error: No se pudo abrir la carpeta data/." << endl;
+        return 1;
+    }
+    archivo << "# n\tTiempo(ms)" << endl;
+
+    // valores de n para la prueba
+    int nValores[] = {16, 24, 32, 48, 64, 96, 128, 192, 256, 512};
+
+    for (int n : nValores) {
+        Matrix A(n, vector<double>(n));
+        Matrix B(n, vector<double>(n));
+        Matrix C(n, vector<double>(n, 0.0));
+
+        llenarMatriz(A, n);
+        llenarMatriz(B, n);
+        //Para medir el tiempo
+        cout << "Calculando para n = " << n << endl;
+
+        auto inicio = high_resolution_clock::now();
+        
+        multiplicarEstandar(A, B, C, n);
+        
+        auto fin = high_resolution_clock::now();
+
+        auto duracion = duration_cast<milliseconds>(fin - inicio);
+
+        // Para resultados
+        archivo << n << "\t" << duracion.count() << endl;
+        cout << "Completado: " << duracion.count() << " ms" << endl;
+    }
+
+    archivo.close();
+    cout << "\nAnálisis finalizado. Datos guardados en data/resultados.dat" << endl;
+
+    return 0;
+}
+
