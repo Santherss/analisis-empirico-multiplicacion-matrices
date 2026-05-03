@@ -7,7 +7,6 @@
 
 using namespace std;
 using namespace std::chrono;
-
 using Matrix = vector<vector<double>>;
 
 void llenarMatriz(Matrix &M, int n) {
@@ -18,8 +17,7 @@ void llenarMatriz(Matrix &M, int n) {
     }
 }
 
-// Algoritmo de multiplicación clasica O(n^3)
-void multiplicarEstandar(const Matrix &A, const Matrix &B, Matrix &C, int n) {
+void multiplicacionEstandar(const Matrix &A, const Matrix &B, Matrix &C, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             C[i][j] = 0; 
@@ -38,9 +36,9 @@ int main() {
         cerr << "Error: No se pudo abrir la carpeta data/." << endl;
         return 1;
     }
-    archivo << "# n\tTiempo(ms)" << endl;
+    
+    archivo << "# n\tTiempo(us)" << endl; 
 
-    // valores de n para la prueba
     int nValores[] = {16, 24, 32, 48, 64, 96, 128, 192, 256, 512};
 
     for (int n : nValores) {
@@ -50,25 +48,30 @@ int main() {
 
         llenarMatriz(A, n);
         llenarMatriz(B, n);
-        //Para medir el tiempo
-        cout << "Calculando para n = " << n << endl;
 
-        auto inicio = high_resolution_clock::now();
-        
-        multiplicarEstandar(A, B, C, n);
-        
-        auto fin = high_resolution_clock::now();
+        // Para valores de n < 128 se repite 50 veces; para n >= 128 se repite 5 veces
+        int repeticiones = (n < 128) ? 50 : 5; 
+        long long sumaTiempos = 0;
 
-        auto duracion = duration_cast<milliseconds>(fin - inicio);
+        cout << "Para n = " << n << " (" << repeticiones << " veces)  " << flush;
 
-        // Para resultados
-        archivo << n << "\t" << duracion.count() << endl;
-        cout << "Completado: " << duracion.count() << " ms" << endl;
+        for (int r = 0; r < repeticiones; r++) {
+            auto inicio = high_resolution_clock::now();
+            multiplicacionEstandar(A, B, C, n);
+            auto fin = high_resolution_clock::now();
+            
+            auto duracion = duration_cast<microseconds>(fin - inicio);
+            sumaTiempos += duracion.count();
+        }
+
+        // Para promedio de las repeticiones
+        double promedio = (double)sumaTiempos / repeticiones;
+
+        archivo << n << "\t" << promedio << endl;
+        cout<<"Promedio: "<< promedio << "us" << endl;
     }
 
     archivo.close();
-    cout << "\nAnálisis finalizado. Datos guardados en data/resultados.dat" << endl;
 
     return 0;
 }
-

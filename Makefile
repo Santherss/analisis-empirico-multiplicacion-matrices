@@ -3,7 +3,6 @@ CXX = g++
 CXXFLAGS = -O3 -Wall -std=c++17
 TARGET = matrix_bench
 SRC = src/main.cpp
-PLOT_SCRIPT = plot.gp
 DATA_FILE = data/resultados.dat
 OUT_IMAGE = data/grafica.png
 
@@ -18,20 +17,20 @@ setup:
 $(TARGET): $(SRC)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
 
-# Ejecutar el experimento
+# Ejecutar 
 run: all
 	./$(TARGET)
 
 # Generar la gráfica usando Gnuplot
 plot: run
-	@echo "Generando gráfica"
+	@echo "Generando gráfica en $(OUT_IMAGE)"
 	@echo "set terminal png size 800,600; \
 	       set output '$(OUT_IMAGE)'; \
 	       set title 'Rendimiento: Multiplicación de Matrices'; \
 	       set xlabel 'Tamaño n'; \
-	       set ylabel 'Tiempo (ms)'; \
+	       set ylabel 'Tiempo (us)'; \
 	       set grid; \
-	       plot '$(DATA_FILE)' with linespoints title 'Algoritmo Estándar'" | gnuplot
+	       plot '$(DATA_FILE)' with linespoints lw 2 pt 7 title 'Algoritmo Estándar'" | gnuplot
 
 # Limpiar archivos binarios y datos
 clean:
