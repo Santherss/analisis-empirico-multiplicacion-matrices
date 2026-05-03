@@ -1,15 +1,20 @@
-# Binarios y Ejecutables
+# Ejecutables y objetos
+matrix_bench
 matrix_analysis
 *.o
 *.out
 build/
 
-# Datos de experimentos
+# Resultados de experimentos
+data/*.dat
+data/*.png
 data/*.csv
 data/*.json
 
-# Editores y Sistema
+# Archivos de sistema y editores
 *.swp
 *~
 .DS_Store
 .vscode/
+.idea/
+.cache/
