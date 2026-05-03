@@ -1,0 +1,15 @@
+# Binarios y Ejecutables
+matrix_analysis
+*.o
+*.out
+build/
+
+# Datos de experimentos
+data/*.csv
+data/*.json
+
+# Editores y Sistema
+*.swp
+*~
+.DS_Store
+.vscode/
