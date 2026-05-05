@@ -26,11 +26,12 @@ plot: run
 	@echo "Generando gráfica en $(OUT_IMAGE)"
 	@echo "set terminal png size 800,600; \
 	       set output '$(OUT_IMAGE)'; \
-	       set title 'Rendimiento: Multiplicación de Matrices'; \
-	       set xlabel 'Tamaño n'; \
+	       set title 'Rendimiento: Estándar vs Strassen (Puro)'; \
+	       set xlabel 'Tamaño n (Potencias de 2)'; \
 	       set ylabel 'Tiempo (us)'; \
 	       set grid; \
-	       plot '$(DATA_FILE)' with linespoints lw 2 pt 7 title 'Algoritmo Estándar'" | gnuplot
+	       plot '$(DATA_FILE)' using 1:2 with linespoints lw 2 pt 7 title 'Algoritmo Estándar', \
+	            '$(DATA_FILE)' using 1:3 with linespoints lw 2 pt 5 title 'Algoritmo Strassen'" | gnuplot
 
 # Limpiar archivos binarios y datos
 clean:
