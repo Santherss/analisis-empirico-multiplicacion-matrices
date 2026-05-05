@@ -28,6 +28,23 @@ void multiplicacionEstandar(const Matrix &A, const Matrix &B, Matrix &C, int n) 
     }
 }
 
+
+void sumar(const Matrix& A, const Matrix& B, Matrix& C, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+
+void restar(const Matrix& A, const Matrix& B, Matrix& C, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            C[i][j] = A[i][j] - B[i][j];
+        }
+    }
+}
+
 int main() {
     srand(time(NULL));
 
