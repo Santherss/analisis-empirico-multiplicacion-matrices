@@ -28,7 +28,7 @@ void multiplicacionEstandar(const Matrix &A, const Matrix &B, Matrix &C, int n) 
     }
 }
 
-
+//Funciones auxiliares para aritmetica de matrices 
 void sumar(const Matrix& A, const Matrix& B, Matrix& C, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -45,6 +45,31 @@ void restar(const Matrix& A, const Matrix& B, Matrix& C, int n) {
     }
 }
 
+//Funcion auxiliar para dividir la matriz en 4 submatrices
+void dividir(const Matrix &A, Matrix &A11, Matrix &A12, Matrix &A21, Matrix &A22, int n) {
+    int k = n / 2;
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < k; j++) {
+            A11[i][j] = A[i][j];
+            A12[i][j] = A[i][j + k];
+            A21[i][j] = A[i + k][j];
+            A22[i][j] = A[i + k][j + k];
+        }
+    }
+}
+
+
+void unir(const Matrix &C11, const Matrix &C12, const Matrix &C21, const Matrix &C22, Matrix &C, int n) {
+    int k = n / 2;
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < k; j++) {
+            C[i][j] = C11[i][j];
+            C[i][j + k] = C12[i][j];
+            C[i + k][j] = C21[i][j];
+            C[i + k][j + k] = C22[i][j];
+        }
+    }
+}
 int main() {
     srand(time(NULL));
 
