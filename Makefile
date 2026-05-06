@@ -1,6 +1,6 @@
 # Variables de compilación
 CXX = g++
-CXXFLAGS = -O3 -Wall -std=c++17
+CXXFLAGS = -O3 -Wall -std=c++17 -march=native
 TARGET = matrix_bench
 SRC = src/main.cpp
 DATA_FILE = data/resultados.dat
