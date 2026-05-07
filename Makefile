@@ -26,8 +26,8 @@ plot: run
 	@echo "Generando gráfica en $(OUT_IMAGE)"
 	@echo "set terminal png size 800,600; \
 	       set output '$(OUT_IMAGE)'; \
-	       set title 'Rendimiento: Estándar vs Strassen (Puro)'; \
-	       set xlabel 'Tamaño n (Potencias de 2)'; \
+	       set title 'Rendimiento: Estándar vs Strassen'; \
+	       set xlabel 'n'; \
 	       set ylabel 'Tiempo (us)'; \
 	       set grid; \
 	       plot '$(DATA_FILE)' using 1:2 with linespoints lw 2 pt 7 title 'Algoritmo Estándar', \

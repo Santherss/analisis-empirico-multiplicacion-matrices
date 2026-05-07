@@ -72,7 +72,7 @@ void unir(const Matrix &C11, const Matrix &C12, const Matrix &C21, const Matrix 
 }
 
 void strassen(const Matrix &A, const Matrix &B, Matrix &C, int n) {
-    if (n <= 64) {
+    if (n < 32) {
         multiplicacionEstandar(A, B, C, n);
         return;
     }
@@ -155,7 +155,7 @@ int main() {
     archivo << "# n\tEstandar(us)\tStrassen(us)" << endl; 
 
     // Solo potencias de 2 para Strassen 
-    int nValores[] = {16, 32, 64, 128, 256, 512, 1024};
+    int nValores[] = {16, 32, 64, 128, 256};
 
     for (int n : nValores) {
         Matrix A(n, vector<double>(n)), B(n, vector<double>(n));
