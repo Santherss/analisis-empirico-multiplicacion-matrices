@@ -55,8 +55,8 @@ void strassen(const Matrix &A, int rA, int cA,
               const Matrix &B, int rB, int cB,
               Matrix &C, int rC, int cC, int n) {
     
-    // Caso base:  umbral de 32 
-    if (n <= 32) {
+    // Caso base:  umbral de 16
+    if (n <= 16) {
         multiplicacionEstandar(A, rA, cA, B, rB, cB, C, rC, cC, n);
         return;
     }
@@ -121,7 +121,7 @@ int main() {
     
     archivo << "# n\tEstandar(us)\tStrassen(us)" << endl; 
 
-    int nValores[] = {16, 32, 64, 128, 256};
+    int nValores[] = {16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 256, 512, 1024};
 
     for (int n : nValores) {
         Matrix A(n, vector<double>(n)), B(n, vector<double>(n));
@@ -130,7 +130,7 @@ int main() {
         llenarMatriz(A, n);
         llenarMatriz(B, n);
 
-        int repeticiones = (n < 128) ? 20 : 5; 
+        int repeticiones = (n <= 64) ? 100 : (n <= 256 ? 20 : 5); 
         
         // Medir Estándar
         long long sumaStd = 0;
