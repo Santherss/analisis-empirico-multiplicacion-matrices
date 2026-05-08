@@ -26,7 +26,7 @@ plot: run
 	@echo "Generando gráfica en $(OUT_IMAGE)..."
 	@echo "set terminal pngcairo size 1024,768 font 'Verdana,12'; \
 	       set output '$(OUT_IMAGE)'; \
-	       set title 'Análisis de Rendimiento: Estándar vs Strassen (Umbral n=16)'; \
+	       set title 'Análisis de Rendimiento: Estándar vs Strassen (Umbral n=32)'; \
 	       set xlabel 'Dimensión de la Matriz (n)'; \
 	       set ylabel 'Tiempo de Ejecución (microsegundos)'; \
 	       set logscale xy 2; \

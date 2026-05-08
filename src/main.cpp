@@ -55,8 +55,8 @@ void strassen(const Matrix &A, int rA, int cA,
               const Matrix &B, int rB, int cB,
               Matrix &C, int rC, int cC, int n) {
     
-    // Caso base:  umbral de 16
-    if (n <= 16) {
+    // Caso base:  umbral de 32
+    if (n <= 32) {
         multiplicacionEstandar(A, rA, cA, B, rB, cB, C, rC, cC, n);
         return;
     }
